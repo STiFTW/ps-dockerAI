@@ -1,0 +1,31 @@
+services:
+  frontend:
+    build: ./frontend
+#    image: nigelpoulton/ps-dockerai:dmr-fe-0.1
+    networks:
+      - chatnet
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend
+#    image: nigelpoulton/ps-dockerai:dmr-be-0.1
+    networks:
+      - chatnet
+    env_file:
+      - .env    
+    depends_on:
+      - model-server
+  
+  model-server:
+    provider:
+      type: model
+      options:
+        model: ${LLM_MODEL_NAME}
+
+networks:
+  chatnet:

@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./app/*"]
+    },
+    "jsx": "react-jsx",
+    "resolveJsonModule": true
+  },
+  "include": ["app/**/*.js", "app/**/*.jsx"]
+}

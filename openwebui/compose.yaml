@@ -1,0 +1,21 @@
+volumes:
+  open-webui:
+services:
+  chatbot:
+    image: ghcr.io/open-webui/open-webui:main
+    environment:
+      - OPENAI_API_KEY=${OPENAI_KEY}
+      - OPENAI_API_BASE_URL=${MODEL_HOST}
+      - DEFAULT_MODELS=${MODEL_NAME}
+    volumes:
+      - open-webui:/app/backend/data
+    ports:
+      - "3001:8080"    
+    restart: always
+    depends_on:
+      - dmr    
+  dmr:
+    provider:
+      type: model
+      options:
+        model: ${MODEL_NAME}
