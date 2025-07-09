@@ -1,7 +1,6 @@
 services:
   frontend:
     build: ./frontend
-#    image: nigelpoulton/ps-dockerai:dmr-fe-0.1
     networks:
       - chatnet
     ports:
@@ -13,19 +12,48 @@ services:
 
   backend:
     build: ./backend
-#    image: nigelpoulton/ps-dockerai:dmr-be-0.1
     networks:
       - chatnet
     env_file:
-      - .env    
-    depends_on:
+      - .env
+    models:
       - model-server
-  
-  model-server:
-    provider:
-      type: model
-      options:
-        model: ${LLM_MODEL_NAME}
+
+models:
+  model-server: 
+    model: ${LLM_MODEL_NAME}
 
 networks:
   chatnet:
+
+#----------------------------------------
+# Old config. Use for 
+# Compose v2.37
+# Docker Desktop v4.43.0
+#----------------------------------------
+#services:
+#  frontend:
+#    build: ./frontend
+#    networks:
+#      - chatnet
+#    ports:
+#      - "3000:3000"
+#    env_file:
+#      - .env
+#    depends_on:
+#      - backend
+#  backend:
+#    build: ./backend
+#    networks:
+#      - chatnet
+#    env_file:
+#      - .env    
+#    depends_on:
+#      - model-server  
+#  model-server:
+#    provider:
+#      type: model
+#      options:
+#        model: ${LLM_MODEL_NAME}
+#networks:
+#  chatnet:
